@@ -6,8 +6,8 @@ import com.alex.technicaltest.domain.model.Price;
 
 public interface PriceService {
     List<Price> getPrices();
-    Price getPriceById(Integer id);
+    Price getPriceById(Long id);
     Price createPrice(Price price);
     Price updatePrice(Price price);
-    void deletePriceById(Integer id);
+    void deletePriceById(Long id);
 }

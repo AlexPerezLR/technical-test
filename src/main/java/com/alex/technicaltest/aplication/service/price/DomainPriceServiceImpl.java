@@ -18,7 +18,7 @@ public class DomainPriceServiceImpl implements PriceService {
     }
 
     @Override
-    public Price getPriceById(Integer id) {
+    public Price getPriceById(Long id) {
         return priceRepository.getById(id);
     }
 
@@ -33,7 +33,7 @@ public class DomainPriceServiceImpl implements PriceService {
     }
 
     @Override
-    public void deletePriceById(Integer id) {
+    public void deletePriceById(Long id) {
         priceRepository.deleteById(id);
     }
     
