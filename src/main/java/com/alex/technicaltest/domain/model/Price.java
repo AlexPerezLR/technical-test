@@ -14,9 +14,6 @@ import lombok.Data;
 @Data
 public class Price {
     private Long id;
-    
-    @NotBlank(message = "El nombre no puede ser nulo o vacío")
-    private String name;
 
     private Product product;
     private Brand brand;
