@@ -2,6 +2,7 @@ package com.alex.technicaltest.domain.port;
 
 import java.util.List;
 
+import com.alex.technicaltest.domain.dto.inbound.PriceRequestDto;
 import com.alex.technicaltest.domain.model.Price;
 
 public interface PriceRepository {
@@ -10,4 +11,5 @@ public interface PriceRepository {
     Price create(Price price);
     Price update(Price price);
     void deleteById(Long id);
+    List<Price> getByRequestParams(PriceRequestDto request);
 }

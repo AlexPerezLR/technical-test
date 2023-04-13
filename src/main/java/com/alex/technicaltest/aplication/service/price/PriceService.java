@@ -2,6 +2,7 @@ package com.alex.technicaltest.aplication.service.price;
 
 import java.util.List;
 
+import com.alex.technicaltest.domain.dto.inbound.PriceRequestDto;
 import com.alex.technicaltest.domain.model.Price;
 
 public interface PriceService {
@@ -10,4 +11,5 @@ public interface PriceService {
     Price createPrice(Price price);
     Price updatePrice(Price price);
     void deletePriceById(Long id);
+    Price getPriceByParams(PriceRequestDto request);
 }

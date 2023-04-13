@@ -2,6 +2,7 @@ package com.alex.technicaltest.aplication.service.price;
 
 import java.util.List;
 
+import com.alex.technicaltest.domain.dto.inbound.PriceRequestDto;
 import com.alex.technicaltest.domain.model.Price;
 import com.alex.technicaltest.domain.port.PriceRepository;
 
@@ -35,6 +36,17 @@ public class DomainPriceServiceImpl implements PriceService {
     @Override
     public void deletePriceById(Long id) {
         priceRepository.deleteById(id);
+    }
+
+    @Override
+    public Price getPriceByParams(PriceRequestDto request) {
+        //here goes the business logic.
+        List<Price> prices = priceRepository.getByRequestParams(request);
+
+        return prices.stream().reduce((acc, el) -> {
+            return acc.getPriority()>el.getPriority() ? acc : el;
+        }).get();
+
     }
     
 }

@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.alex.technicaltest.domain.dto.inbound.PriceRequestDto;
 import com.alex.technicaltest.domain.model.Price;
 import com.alex.technicaltest.domain.port.PriceRepository;
 import com.alex.technicaltest.infrastructure.config.mapper.AssemblerService;
@@ -55,6 +56,13 @@ public class JpaPriceRepositoryH2Sql implements PriceRepository{
             throw new ResourceNotFoundException("El proveedor con id: "+id+" no se encuentra o no existe.");
         }
         jpaPriceRepo.deleteById(id);
+    }
+
+    @Override
+    public List<Price> getByRequestParams(PriceRequestDto request) {
+        return assembler.toDTOList(
+            jpaPriceRepo.findByParamsAndDateLight(request.getApplicationDate(), request.getProductId(), request.getBrandId()), 
+            Price.class);
     }
     
 }
