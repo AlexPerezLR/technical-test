@@ -33,6 +33,7 @@ public class PriceEntity {
     private LocalDateTime endDate;
 
     private Integer priceList;
+    private Integer priority;
     private BigDecimal price;
 
     private String currency;
