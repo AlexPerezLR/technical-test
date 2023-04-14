@@ -6,6 +6,7 @@ import com.alex.technicaltest.domain.dto.inbound.PriceRequestDto;
 import com.alex.technicaltest.domain.dto.outbound.PriceResponseDto;
 import com.alex.technicaltest.domain.model.Price;
 import com.alex.technicaltest.domain.port.PriceRepository;
+import com.alex.technicaltest.infrastructure.exception.ResourceNotFoundException;
 
 import lombok.RequiredArgsConstructor;
 
@@ -46,7 +47,7 @@ public class DomainPriceServiceImpl implements PriceService {
 
         return prices.stream().reduce((acc, el) -> {
             return acc.getPriority()>el.getPriority() ? acc : el;
-        }).get();
+        }).orElseThrow(() -> new ResourceNotFoundException("There are no prices that matches the request params provided."));
 
     }
     
