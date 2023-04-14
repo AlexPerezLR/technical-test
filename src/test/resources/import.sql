@@ -1,1 +1,2 @@
--- fill price tables --
+-- this file would be needed in case we had a postgresql database for production, and we wanted to test somethign with an h2 instance
+-- since we are using h2 for production too, the db gets loaded with all the files in flyway and so, it gets populated.

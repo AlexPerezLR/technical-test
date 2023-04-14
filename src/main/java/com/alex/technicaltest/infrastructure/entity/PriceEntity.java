@@ -21,7 +21,6 @@ public class PriceEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String name;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private ProductEntity product;
@@ -33,6 +32,7 @@ public class PriceEntity {
     private LocalDateTime endDate;
 
     private Integer priceList;
+    private Integer priority;
     private BigDecimal price;
 
     private String currency;

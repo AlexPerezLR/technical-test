@@ -52,6 +52,7 @@ public class JpaProductRepositoryH2Sql implements ProductRepository{
     @Transactional
     public void deleteById(Long id) {
         if(!jpaProductRepo.existsById(id)){
+            log.warn("No se ha encontrado ningún producto con el id: "+id);
             throw new ResourceNotFoundException("El producto con id: "+id+" no se encuentra o no existe.");
         }
         jpaProductRepo.deleteById(id);

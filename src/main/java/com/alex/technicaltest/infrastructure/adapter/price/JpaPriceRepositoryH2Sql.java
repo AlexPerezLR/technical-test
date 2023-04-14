@@ -5,10 +5,12 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.alex.technicaltest.domain.dto.inbound.PriceRequestDto;
+import com.alex.technicaltest.domain.dto.outbound.PriceResponseDto;
 import com.alex.technicaltest.domain.model.Price;
 import com.alex.technicaltest.domain.port.PriceRepository;
 import com.alex.technicaltest.infrastructure.config.mapper.AssemblerService;
-import com.alex.technicaltest.infrastructure.entity.BrandEntity;
+import com.alex.technicaltest.infrastructure.entity.PriceEntity;
 import com.alex.technicaltest.infrastructure.exception.ResourceNotFoundException;
 
 import lombok.RequiredArgsConstructor;
@@ -25,20 +27,20 @@ public class JpaPriceRepositoryH2Sql implements PriceRepository{
 
     @Override
     public List<Price> getAll() {
-        List<BrandEntity> pricesEntity = jpaPriceRepo.findAll();
+        List<PriceEntity> pricesEntity = jpaPriceRepo.findAll();
         return assembler.toDTOList(pricesEntity, Price.class);
     }
 
     @Override
-    public Price getById(Integer id) {
-        BrandEntity priceEntity = jpaPriceRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("El price con id: "+id+" no se encuentra o no existe."));
+    public Price getById(Long id) {
+        PriceEntity priceEntity = jpaPriceRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("La tarifa con id: "+id+" no se encuentra o no existe."));
         return assembler.toDTO(priceEntity, Price.class);
     }
 
     @Override
     @Transactional
     public Price create(Price price) {
-        BrandEntity priceEntity = assembler.toEntity(price, BrandEntity.class);
+        PriceEntity priceEntity = assembler.toEntity(price, PriceEntity.class);
         return assembler.toDTO(jpaPriceRepo.save(priceEntity), Price.class);
     }
 
@@ -50,11 +52,17 @@ public class JpaPriceRepositoryH2Sql implements PriceRepository{
 
     @Override
     @Transactional
-    public void deleteById(Integer id) {
+    public void deleteById(Long id) {
         if(!jpaPriceRepo.existsById(id)){
-            throw new ResourceNotFoundException("El proveedor con id: "+id+" no se encuentra o no existe.");
+            log.warn("No se ha encontrado ninguna tarifa con id: "+id);
+            throw new ResourceNotFoundException("La tarifa con id: "+id+" no se encuentra o no existe.");
         }
         jpaPriceRepo.deleteById(id);
+    }
+
+    @Override
+    public List<PriceResponseDto> getByRequestParams(PriceRequestDto request) {
+        return jpaPriceRepo.findByParamsAndDateLight(request.getApplicationDate(), request.getProductId(), request.getBrandId());
     }
     
 }

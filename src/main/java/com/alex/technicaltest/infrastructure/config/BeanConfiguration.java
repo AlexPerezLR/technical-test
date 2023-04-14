@@ -3,6 +3,8 @@ package com.alex.technicaltest.infrastructure.config;
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.format.FormatterRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.alex.technicaltest.aplication.service.brand.BrandService;
 import com.alex.technicaltest.aplication.service.brand.DomainBrandServiceImpl;
@@ -13,6 +15,7 @@ import com.alex.technicaltest.aplication.service.product.ProductService;
 import com.alex.technicaltest.domain.port.BrandRepository;
 import com.alex.technicaltest.domain.port.PriceRepository;
 import com.alex.technicaltest.domain.port.ProductRepository;
+import com.alex.technicaltest.infrastructure.converters.LocalDateTimeConverter;
 
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
@@ -20,7 +23,7 @@ import io.swagger.v3.oas.models.security.SecurityRequirement;
 import io.swagger.v3.oas.models.security.SecurityScheme;
 
 @Configuration
-public class BeanConfiguration {
+public class BeanConfiguration implements WebMvcConfigurer{
 
     @Bean
     public ModelMapper modelMapper(){
@@ -56,5 +59,10 @@ public class BeanConfiguration {
               .type(SecurityScheme.Type.HTTP)
               .scheme("bearer")
               .bearerFormat("JWT")));
+    }
+
+    @Override
+    public void addFormatters(FormatterRegistry registry) {
+        registry.addConverter(new LocalDateTimeConverter());
     }
 }
