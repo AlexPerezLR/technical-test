@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.alex.technicaltest.aplication.service.price.PriceService;
 import com.alex.technicaltest.domain.dto.inbound.PriceRequestDto;
+import com.alex.technicaltest.domain.dto.outbound.PriceResponseDto;
 import com.alex.technicaltest.domain.model.Price;
 import com.alex.technicaltest.infrastructure.util.Constants;
 
@@ -28,7 +29,7 @@ public class PriceController {
     }
 
     @GetMapping("")
-    public ResponseEntity<Price> getPriceByParams(
+    public ResponseEntity<PriceResponseDto> getPriceByParams(
         @PathParam("applicationDate") LocalDateTime applicationDate,
         @PathParam("productId") Long productId,
         @PathParam("brandId") Long brandId) {

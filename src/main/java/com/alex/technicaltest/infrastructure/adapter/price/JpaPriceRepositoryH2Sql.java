@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.alex.technicaltest.domain.dto.inbound.PriceRequestDto;
+import com.alex.technicaltest.domain.dto.outbound.PriceResponseDto;
 import com.alex.technicaltest.domain.model.Price;
 import com.alex.technicaltest.domain.port.PriceRepository;
 import com.alex.technicaltest.infrastructure.config.mapper.AssemblerService;
@@ -59,10 +60,8 @@ public class JpaPriceRepositoryH2Sql implements PriceRepository{
     }
 
     @Override
-    public List<Price> getByRequestParams(PriceRequestDto request) {
-        return assembler.toDTOList(
-            jpaPriceRepo.findByParamsAndDateLight(request.getApplicationDate(), request.getProductId(), request.getBrandId()), 
-            Price.class);
+    public List<PriceResponseDto> getByRequestParams(PriceRequestDto request) {
+        return jpaPriceRepo.findByParamsAndDateLight(request.getApplicationDate(), request.getProductId(), request.getBrandId());
     }
     
 }

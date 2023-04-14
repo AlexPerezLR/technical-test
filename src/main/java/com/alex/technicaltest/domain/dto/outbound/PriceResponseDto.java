@@ -3,6 +3,8 @@ package com.alex.technicaltest.domain.dto.outbound;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -15,4 +17,6 @@ public class PriceResponseDto {
     private LocalDateTime startDate;
     private LocalDateTime endDate;
     private BigDecimal price;
+    @JsonIgnore
+    private Integer priority;
 }
