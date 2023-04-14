@@ -19,6 +19,20 @@ La prueba está realizada con java 17 y Spring Boot version 3.0.5.
 # Cómo lanzarla
 Para probar la prueba, solamente habría que abir el proyecto en cualquier IDE y lanzarlo. Al hacerlo se nos levantará un [swagger](http://localhost:8080/swagger-ui/index.html)
 
+El endpoint que se pide es el siguiente: 
+![image](https://user-images.githubusercontent.com/28430237/232031688-eef4e402-292b-48c0-a7e8-d5e8231eb6be.png)
+
+Recibe 3 parámetros en la url: 
+  - applicationDate*: Fecha de aplicación.
+  - productId: Identificador de producto
+  - brandId: Identificador de cadena
+
+*Importante: En el proyecto he cambiado el formato de las fechas con respecto al del enunciado ya que me resultaba más fácil leerlas, por lo tanto, esta fecha: 
+2020-06-14-00.00.00 pasaría a ser esta -> 2020-06-14 00:00:00
+
+Una request de ejemplo generada por el endponit del swagger sería: http://localhost:8080/api/prices?applicationDate=2020-06-14%2010%3A00%3A00&productId=35455&brandId=1
+
+
 # Conclusiones
 Me ha gustado realizarla, aunque me hubiera gustado (por mi parte) tener más tiempo para dedicarle y así refinarla un poco más.
-Por ejemplo, añadiría en los controladores los demás endpoints del típico CRUD
+Por ejemplo, añadiría en los controladores los demás endpoints del típico CRUD o también habría añadido la moneda (EUR) como sufijo al resultado del precio de la tarifa devuelta.
