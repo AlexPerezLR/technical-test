@@ -33,7 +33,7 @@ public class JpaPriceRepositoryH2Sql implements PriceRepository{
 
     @Override
     public Price getById(Long id) {
-        PriceEntity priceEntity = jpaPriceRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("El price con id: "+id+" no se encuentra o no existe."));
+        PriceEntity priceEntity = jpaPriceRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("La tarifa con id: "+id+" no se encuentra o no existe."));
         return assembler.toDTO(priceEntity, Price.class);
     }
 
@@ -54,7 +54,8 @@ public class JpaPriceRepositoryH2Sql implements PriceRepository{
     @Transactional
     public void deleteById(Long id) {
         if(!jpaPriceRepo.existsById(id)){
-            throw new ResourceNotFoundException("El proveedor con id: "+id+" no se encuentra o no existe.");
+            log.warn("No se ha encontrado ninguna tarifa con id: "+id);
+            throw new ResourceNotFoundException("La tarifa con id: "+id+" no se encuentra o no existe.");
         }
         jpaPriceRepo.deleteById(id);
     }

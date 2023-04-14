@@ -47,7 +47,7 @@ public class DomainPriceServiceImpl implements PriceService {
 
         return prices.stream().reduce((acc, el) -> {
             return acc.getPriority()>el.getPriority() ? acc : el;
-        }).orElseThrow(() -> new ResourceNotFoundException("There are no prices that matches the request params provided."));
+        }).orElseThrow(() -> new ResourceNotFoundException("No hay tarifas que coincidan con los parámetros proporcionados."));
 
     }
     

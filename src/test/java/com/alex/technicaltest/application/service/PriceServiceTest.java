@@ -1,7 +1,9 @@
 package com.alex.technicaltest.application.service;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
@@ -15,6 +17,7 @@ import com.alex.technicaltest.aplication.service.price.DomainPriceServiceImpl;
 import com.alex.technicaltest.domain.dto.inbound.PriceRequestDto;
 import com.alex.technicaltest.domain.dto.outbound.PriceResponseDto;
 import com.alex.technicaltest.domain.port.PriceRepository;
+import com.alex.technicaltest.infrastructure.exception.ResourceNotFoundException;
 
 @SpringBootTest
 @ActiveProfiles({"junit"})
@@ -53,5 +56,19 @@ public class PriceServiceTest {
         PriceResponseDto result = priceService.getPriceByParams(request);
 
         assertTrue(result.getProductId()==8L, "The object returned is not the one with highest priority.");
+    }
+
+    @Test
+    public void getPriceByParamsWithEmtpyPriceList(){
+        List<PriceResponseDto> fakeList = new ArrayList<>();
+
+        PriceRequestDto request = new PriceRequestDto();
+        Mockito.when(priceRepo.getByRequestParams(request))
+                .thenReturn(fakeList);
+
+
+        assertThrows(ResourceNotFoundException.class, () -> {
+            priceService.getPriceByParams(request);
+        });
     }
 }
